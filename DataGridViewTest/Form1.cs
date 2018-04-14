@@ -188,17 +188,17 @@ namespace DataGridViewTest
 
             // ■■■以下、COMオブジェクトの解放■■■
             // Sheet解放
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlSheet);
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlSheets);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(sheets);
 
             // Book解放
             //xlBook.Close();
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlBook);
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlBooks);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(workbooks);
 
             // Excelアプリケーションを解放
             //xlApp.Quit();
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlApp);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(excel);
         }
     }
 }

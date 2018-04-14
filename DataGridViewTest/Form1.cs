@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -156,49 +158,34 @@ namespace DataGridViewTest
 
         private void excelOutput_btn_Click(object sender, EventArgs e)
         {
+            string saveFolder = @"D:\90_projects\VisualStudio2017\DataGridViewTest"; 
+
             // Excel操作用オブジェクト
-            Excel.Application excel = null;
-            Excel.Workbooks workbooks = null;
-            Excel.Workbook workbook = null;
-            Excel.Sheets sheets = null;
-            Excel.Worksheet worksheet = null;
-
-            // Excelアプリケーション生成
-            excel = new Excel.Application();
-
-            // ◆操作対象のExcelブックを開く◆
-            // Openメソッド
-            workbooks = excel.Workbooks;
-            workbook = workbooks.Open(System.IO.Path.GetFullPath(@"..\..\..\data\work01.xlsx"));
-            
-            // シートを選択する
-            sheets = workbook.Worksheets;
-            worksheet = sheets[1] as Excel.Worksheet; // 1シート目を操作対象に設定する
-
-            // 表示
-            excel.Visible = true;
+            Excel.Application excel = new Excel.Application();
+            excel.Visible = false;
+            Excel.Workbooks workbooks = excel.Workbooks;
+            Excel.Workbook workbook = workbooks.Open(Path.GetFullPath(@"D:\90_projects\VisualStudio2017\DataGridViewTest\templeteTest.xltx"));
+            Excel.Sheets sheets = workbook.Worksheets;
+            Excel.Worksheet worksheet = sheets[1] as Excel.Worksheet;
 
             //セル代入
-            //A1セルのデータの書き込み
-            Excel.Range range = worksheet.get_Range("A1");
-            if (range != null)
-            {
-                range.Value = 10;
-            }
+            worksheet.get_Range("A1").Value = 10;
 
-            // ■■■以下、COMオブジェクトの解放■■■
-            // Sheet解放
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(sheets);
+            //保存
+            workbook.SaveAs(saveFolder + "\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx");
 
-            // Book解放
-            //xlBook.Close();
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(workbooks);
-
-            // Excelアプリケーションを解放
-            //xlApp.Quit();
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(excel);
+            //終了処理
+            workbook.Close();
+            workbooks.Close();
+            excel.Quit();
+            Marshal.ReleaseComObject(excel);
+            worksheet = null;
+            sheets = null;
+            workbook = null;
+            workbooks = null;
+            excel = null;
+            
+            GC.Collect();
         }
     }
 }

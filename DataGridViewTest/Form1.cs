@@ -183,8 +183,7 @@ namespace DataGridViewTest
             sheets = null;
             workbook = null;
             workbooks = null;
-            excel = null;
-            
+            excel = null;            
             GC.Collect();
         }
     }

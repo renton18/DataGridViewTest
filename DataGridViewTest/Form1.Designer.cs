@@ -35,6 +35,8 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dataPicker_btn = new System.Windows.Forms.Button();
             this.excelOutput_btn = new System.Windows.Forms.Button();
+            this.check_btn = new System.Windows.Forms.Button();
+            this.check_txt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,11 +104,30 @@
             this.excelOutput_btn.UseVisualStyleBackColor = true;
             this.excelOutput_btn.Click += new System.EventHandler(this.excelOutput_btn_Click);
             // 
+            // check_btn
+            // 
+            this.check_btn.Location = new System.Drawing.Point(200, 248);
+            this.check_btn.Name = "check_btn";
+            this.check_btn.Size = new System.Drawing.Size(115, 23);
+            this.check_btn.TabIndex = 7;
+            this.check_btn.Text = "データ取得ボタン";
+            this.check_btn.UseVisualStyleBackColor = true;
+            this.check_btn.Click += new System.EventHandler(this.check_btn_Click);
+            // 
+            // check_txt
+            // 
+            this.check_txt.Location = new System.Drawing.Point(12, 248);
+            this.check_txt.Name = "check_txt";
+            this.check_txt.Size = new System.Drawing.Size(168, 19);
+            this.check_txt.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(604, 467);
+            this.Controls.Add(this.check_txt);
+            this.Controls.Add(this.check_btn);
             this.Controls.Add(this.excelOutput_btn);
             this.Controls.Add(this.dataPicker_btn);
             this.Controls.Add(this.dateTimePicker1);
@@ -119,6 +140,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -131,6 +153,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button dataPicker_btn;
         private System.Windows.Forms.Button excelOutput_btn;
+        private System.Windows.Forms.Button check_btn;
+        private System.Windows.Forms.TextBox check_txt;
     }
 }
 

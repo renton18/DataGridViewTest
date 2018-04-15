@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Data;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -60,7 +61,7 @@ namespace DataGridViewTest
 
         private void initDGV1()
         {
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt = new System.Data.DataTable();
             DataColumn col1 = new DataColumn("columns", typeof(string));
             DataColumn col2 = new DataColumn("04/02", typeof(int));
             DataColumn col3 = new DataColumn("04/03", typeof(int));
@@ -95,20 +96,20 @@ namespace DataGridViewTest
 
         private void initDGV2()
         {
-            DataTable dt = new DataTable();
+            System.Data.DataTable dt2 = new System.Data.DataTable();
             DataColumn col1 = new DataColumn("columns", typeof(string));
             DataColumn col2 = new DataColumn("04/02", typeof(int));
             DataColumn col3 = new DataColumn("04/03", typeof(string));
 
-            dt.Columns.Add(col1);
-            dt.Columns.Add(col2);
-            dt.Columns.Add(col3);
+            dt2.Columns.Add(col1);
+            dt2.Columns.Add(col2);
+            dt2.Columns.Add(col3);
 
 
-            DataRow dr1 = dt.NewRow();
-            DataRow dr2 = dt.NewRow();
-            DataRow dr3 = dt.NewRow();
-            DataRow dr4 = dt.NewRow();
+            DataRow dr1 = dt2.NewRow();
+            DataRow dr2 = dt2.NewRow();
+            DataRow dr3 = dt2.NewRow();
+            DataRow dr4 = dt2.NewRow();
             dr1[0] = "Total";
             dr1[1] = 1;
             dr2[0] = "割れ";
@@ -117,12 +118,12 @@ namespace DataGridViewTest
             dr3[1] = 10;
             dr4[0] = "傷";
             dr4[1] = 15;
-            dt.Rows.Add(dr1);
-            dt.Rows.Add(dr2);
-            dt.Rows.Add(dr3);
-            dt.Rows.Add(dr4);
+            dt2.Rows.Add(dr1);
+            dt2.Rows.Add(dr2);
+            dt2.Rows.Add(dr3);
+            dt2.Rows.Add(dr4);
 
-            dataGridView1.DataSource = dt;
+            dataGridView1.DataSource = dt2;
 
 
             DataGridViewComboBoxColumn comboboxCol = new DataGridViewComboBoxColumn();
@@ -183,9 +184,33 @@ namespace DataGridViewTest
             sheets = null;
             workbook = null;
             workbooks = null;
-            excel = null;
-            
+            excel = null;          
             GC.Collect();
+        }
+
+        private void check_btn_Click(object sender, EventArgs e)
+        {
+            if (CheckNumber(check_txt.Text))
+            {
+                Console.WriteLine("数字です");
+            }
+            else
+            {
+                Console.WriteLine("文字列です");
+            }
+
+        }
+
+        private Boolean CheckNumber(string word)
+        {
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (char.IsNumber(word, i) == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

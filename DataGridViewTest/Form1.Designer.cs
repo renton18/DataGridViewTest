@@ -37,6 +37,9 @@
             this.excelOutput_btn = new System.Windows.Forms.Button();
             this.check_btn = new System.Windows.Forms.Button();
             this.check_txt = new System.Windows.Forms.TextBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.CLBtest_tb = new System.Windows.Forms.Button();
+            this.CLBSet_bt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,11 +124,42 @@
             this.check_txt.Size = new System.Drawing.Size(168, 19);
             this.check_txt.TabIndex = 8;
             // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(12, 318);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(168, 88);
+            this.checkedListBox1.TabIndex = 9;
+            // 
+            // CLBtest_tb
+            // 
+            this.CLBtest_tb.Location = new System.Drawing.Point(200, 347);
+            this.CLBtest_tb.Name = "CLBtest_tb";
+            this.CLBtest_tb.Size = new System.Drawing.Size(115, 23);
+            this.CLBtest_tb.TabIndex = 10;
+            this.CLBtest_tb.Text = "チェックリスト取得";
+            this.CLBtest_tb.UseVisualStyleBackColor = true;
+            this.CLBtest_tb.Click += new System.EventHandler(this.CLBtest_tb_Click);
+            // 
+            // CLBSet_bt
+            // 
+            this.CLBSet_bt.Location = new System.Drawing.Point(200, 318);
+            this.CLBSet_bt.Name = "CLBSet_bt";
+            this.CLBSet_bt.Size = new System.Drawing.Size(115, 23);
+            this.CLBSet_bt.TabIndex = 11;
+            this.CLBSet_bt.Text = "セット";
+            this.CLBSet_bt.UseVisualStyleBackColor = true;
+            this.CLBSet_bt.Click += new System.EventHandler(this.CLBSet_bt_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 467);
+            this.ClientSize = new System.Drawing.Size(984, 467);
+            this.Controls.Add(this.CLBSet_bt);
+            this.Controls.Add(this.CLBtest_tb);
+            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.check_txt);
             this.Controls.Add(this.check_btn);
             this.Controls.Add(this.excelOutput_btn);
@@ -155,6 +189,9 @@
         private System.Windows.Forms.Button excelOutput_btn;
         private System.Windows.Forms.Button check_btn;
         private System.Windows.Forms.TextBox check_txt;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Button CLBtest_tb;
+        private System.Windows.Forms.Button CLBSet_bt;
     }
 }
 

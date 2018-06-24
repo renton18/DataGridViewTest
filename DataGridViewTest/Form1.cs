@@ -212,5 +212,27 @@ namespace DataGridViewTest
             }
             return true;
         }
+
+        private void CLBSet_bt_Click(object sender, EventArgs e)
+        {
+            string[] itemList1 = new string[4] { "アイテム1", "アイテム2", "アイテム3", "アイテム4" };
+            foreach (var item in itemList1)
+            {
+                checkedListBox1.Items.Add(item);
+            }
+
+            string[] itemList2 = new string[4] { "アイテム5", "アイテム6", "アイテム7", "アイテム8" };
+
+            checkedListBox1.Items.AddRange(itemList2);
+
+        }
+
+        private void CLBtest_tb_Click(object sender, EventArgs e)
+        {
+            foreach (var item in checkedListBox1.CheckedItems)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
     }
 }

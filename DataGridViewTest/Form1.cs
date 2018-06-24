@@ -14,12 +14,13 @@ namespace DataGridViewTest
         {
             InitializeComponent();
             //git test
+            //test2
+            //test3
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //initDGV1();
-            //aa
             initDGV2();
 
             comboBox1.Items.Add("コンボ1");

@@ -1,9 +1,12 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using DataTable = System.Data.DataTable;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DataGridViewTest
@@ -17,15 +20,41 @@ namespace DataGridViewTest
             //main commit
 
         }
+        //バインディング用LIST
+        List<Model> models = new List<Model>();
+        DataTable dt = new DataTable();
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //initDGV1();
             initDGV2();
+            initDGV3();
 
             comboBox1.Items.Add("コンボ1");
             comboBox1.Items.Add("コンボ2");
             comboBox1.Items.Add("コンボ3");
+        }
+
+        //オブジェクト型バインディングとデータテーブル型バインディング
+        private void initDGV3()
+        {
+            //List<object>の場合
+            //modelBindingSource.DataSource = models;
+            //Model m = new Model();
+            //m.name = "taro";
+            //m.age = "12";
+            //modelBindingSource.Add(m);
+
+            //Datatableの場合、以下エラーが発生する
+            //おそらくSQLでデータテーブルを取得した後のDTならうまくいくかも？？
+            DataRow dr1 = dt.NewRow();
+            dr1[0] = false;
+            dr1[1] = "たろう";
+            dr1[2] = "10";
+            dr1[2] = "0";
+            dt.Rows.Add(dr1);
+            modelBindingSource.DataSource = dt;
+
         }
 
         private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
@@ -100,10 +129,14 @@ namespace DataGridViewTest
         private void initDGV2()
         {
             System.Data.DataTable dt2 = new System.Data.DataTable();
+            DataColumn col0 = new DataColumn("check", typeof(bool));
             DataColumn col1 = new DataColumn("columns", typeof(string));
             DataColumn col2 = new DataColumn("04/02", typeof(int));
             DataColumn col3 = new DataColumn("04/03", typeof(string));
+            DataGridViewButtonColumn col4 = new DataGridViewButtonColumn();
+            col4.Name = "削除";
 
+            dt2.Columns.Add(col0);
             dt2.Columns.Add(col1);
             dt2.Columns.Add(col2);
             dt2.Columns.Add(col3);
@@ -113,14 +146,14 @@ namespace DataGridViewTest
             DataRow dr2 = dt2.NewRow();
             DataRow dr3 = dt2.NewRow();
             DataRow dr4 = dt2.NewRow();
-            dr1[0] = "Total";
-            dr1[1] = 1;
-            dr2[0] = "割れ";
-            dr2[1] = 5;
-            dr3[0] = "へこみ";
-            dr3[1] = 10;
-            dr4[0] = "傷";
-            dr4[1] = 15;
+            dr1[1] = "Total";
+            dr1[2] = 1;
+            dr2[1] = "割れ";
+            dr2[2] = 5;
+            dr3[1] = "へこみ";
+            dr3[2] = 10;
+            dr4[1] = "傷";
+            dr4[2] = 15;
             dt2.Rows.Add(dr1);
             dt2.Rows.Add(dr2);
             dt2.Rows.Add(dr3);
@@ -235,6 +268,65 @@ namespace DataGridViewTest
             foreach (var item in checkedListBox1.CheckedItems)
             {
                 Console.WriteLine(item.ToString());
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            //idとパスワード
+            string id = "gakituka18@gmail.com";
+            string pass = "hk49894989";
+            string fromEMail = "gakituka18@gmail.com";
+            string toEMail = "gakituka18@gmail.com";
+
+            //本文とタイトル 一行目をタイトルにする
+            string body, subject;
+            string[] subject1;
+            body = message_txt.Text;
+            subject1 = body.Split('\r');
+            subject = subject1[0];
+
+            //GMail Initialize
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+
+            //GMail認証
+            smtp.Credentials = new System.Net.NetworkCredential(id, pass);
+
+            //SSL
+            smtp.EnableSsl = true;
+
+            System.Net.Mail.MailMessage oMsg = new System.Net.Mail.MailMessage(fromEMail, toEMail, subject, body);
+
+            //メール送信
+            smtp.Send(oMsg);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            dataGridView1.EndEdit();
+            ((DataRowView)dataGridView1.CurrentRow.DataBoundItem).EndEdit();
+            DataRow[] drs = ((System.Data.DataTable)dataGridView1.DataSource).Select("check=true");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            modelDataGridView.EndEdit();
+
+            foreach (var item in models)
+            {
+                Console.WriteLine(item.IsSelected);
+            }
+            var aa  = models.Where(a => a.IsSelected == false).ToList();
+            foreach (var item in aa)
+            {
+                Console.WriteLine(item.IsSelected);
             }
         }
     }
